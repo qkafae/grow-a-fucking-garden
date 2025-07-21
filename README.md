@@ -1,5 +1,5 @@
 # Grow A Fucking Garden 🌱
-> This project is not yet complete !!!!
+> This project is not yet complete !!!! Estiimated alpha release 22/7/2025
 
 This is Grow A Garden, but made more casual, and into a CLI (Command Line Interface)
 
