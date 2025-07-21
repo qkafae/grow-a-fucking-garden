@@ -14,6 +14,8 @@ Download installer from [releases](https://github.com/qkafae/grow-a-fucking-gard
 - `gafg-installer-vx.x.x-win.exe` for windows
 - `gafg-installer-vx.x.x-mac.app` for mac
 
+> I'll attemp to get it added to homebrew/chocolately for an easier installation process, but for now its just another cli installer
+
 ### 2.
 Run the installer
 
