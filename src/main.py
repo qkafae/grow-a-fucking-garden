@@ -48,6 +48,9 @@ def quickStart():
         elif not (os.path.isdir(os.path.join(gamedir, "profiles"))):
             os.makedirs(os.path.join(gamedir, "profiles"))
             upd = True
+        elif not (os.path.isdir(os.path.join(gamedir, "temp"))):
+            os.makedirs(os.path.join(gamedir, "temp"))
+            upd = True
         
         if (upd):
             logger.sucess("Updated/Created necessary game files")
@@ -95,7 +98,7 @@ def main():
     elif (args.quickstart):
         quickStart()
     elif (args.launch):
-        if (os.path.isdir(gamedir) and os.path.isfile(configPath) and os.path.isdir(os.path.join(gamedir, "profiles"))):
+        if (os.path.isdir(gamedir) and os.path.isfile(configPath) and os.path.isdir(os.path.join(gamedir, "profiles")) and os.path.isdir(os.path.join(gamedir, "temp"))):
             game.main()
         else:
             logger.error("Game files not found or is corrupted! Please run --quickstart")
