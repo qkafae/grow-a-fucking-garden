@@ -8,6 +8,8 @@ This is Grow A Garden, but made more casual, and into a CLI (Command Line Interf
 - Disk: Minimum 256mb of disk space
 - CPU: Any
 
+> MacOS support is extremely limited and may not work as intended, but it should work so idk
+
 # Installation ☁️
 ### 1. 
 Download installer from [releases](https://github.com/qkafae/grow-a-fucking-garden/releases)
