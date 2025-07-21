@@ -1,7 +1,12 @@
 # Grow A Fucking Garden 🌱
-> This project is not yet complete !!!! Estiimated alpha release 22/7/2025
+> This project is not yet complete !!!! Estiimated alpha release idk
 
-This is Grow A Garden, but made more casual, and into a CLI (Command Line Interface)
+This is Grow A Garden (concept), but made more casual, and into a CLI (Command Line Interface)
+I've implemented a lot of new things:
+- plants (duh)
+- mastery
+- shop w/ rotation
+- very chill game
 
 # Supported Devices 💻
 - OS: *MacOS High Sierra*, Windows 8.1 or later
