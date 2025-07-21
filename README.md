@@ -34,6 +34,9 @@ After installation, go to any terminal of your choice and run `gafg --version` t
 Then run `gafg --quickstart` initialize the app (you will need to do this after any updates
 > sometimes you may need to restart your device but most likely you dont
 
+## 4.
+To start playing the game, run `gafg --launch`
+
 # Side notes ⚠️
 And there you have it, Grow A Fucking Garden fully installed, here are some other stuff you should know:
 - run `gafg --help` for the list of commands
