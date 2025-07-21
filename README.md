@@ -9,7 +9,7 @@ Anyways here's some cool stuff yay:
 - mastery (to unlock new plants)
 - very chill game with no brainrot
 
-It's extremely easy to cheat in tis game (everything is saved locally) but whats the point of doing it, so just enjoy the game and play it as is
+It's extremely easy to cheat in this game (everything is saved locally) but whats the point of doing it, so just enjoy the game and play it as is
 
 # Supported Devices 💻
 - OS: *MacOS High Sierra*, Windows 8.1 or later
