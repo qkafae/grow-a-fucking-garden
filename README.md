@@ -2,11 +2,14 @@
 > This project is not yet complete !!!! Estiimated alpha release idk
 
 This is Grow A Garden (concept), but made more casual, and into a CLI (Command Line Interface)
-I've implemented a lot of new things:
+Anyways hers some cool stuff yay:
 - plants (duh)
-- mastery
-- shop w/ rotation
-- very chill game
+- expandable garden (duh)
+- daily rotational shop
+- mastery (to unlock new plants)
+- very chill game with no brainrot
+
+It's extremely easy to cheat in tis game (everything is saved locally) but whats the point of doing it, so just enjoy the game and play it as is
 
 # Supported Devices 💻
 - OS: *MacOS High Sierra*, Windows 8.1 or later
