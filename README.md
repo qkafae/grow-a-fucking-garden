@@ -30,7 +30,9 @@ Download installer from [releases](https://github.com/qkafae/grow-a-fucking-gard
 Run the installer
 
 ### 3.
-After installation, go to any terminal of your choice and type `gafg --quickstart` to initialize the app (you will need to do this after any updates.
+After installation, go to any terminal of your choice and run `gafg --version` to confirm the installation
+Then run `gafg --quickstart` initialize the app (you will need to do this after any updates
+> sometimes you may need to restart your device but most likely you dont
 
 # Side notes ⚠️
 And there you have it, Grow A Fucking Garden fully installed, here are some other stuff you should know:
