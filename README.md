@@ -37,5 +37,5 @@ Then run `gafg --quickstart` initialize the app (you will need to do this after 
 # Side notes ⚠️
 And there you have it, Grow A Fucking Garden fully installed, here are some other stuff you should know:
 - run `gafg --help` for the list of commands
-- keeping `cache` (`"cache"` in config.json / `gafg --enablecache`) enabled is highly recommended
+- keeping `cache` (`"cache"` in config.json / `gafg --enablecache`) enabled is highly recommended (it's already enabled by default)
 - enjoy <3
