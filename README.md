@@ -11,8 +11,8 @@ This is Grow A Garden, but made more casual, and into a CLI (Command Line Interf
 # Installation ☁️
 ### 1. 
 Download installer from [releases](https://github.com/qkafae/grow-a-fucking-garden/releases)
-- `installer-vx.x.x.exe` for windows
-- `installer-vx.x.x.app` for mac
+- `gafg-installer-vx.x.x-win.exe` for windows
+- `gafg-installer-vx.x.x-mac.app` for mac
 
 ### 2.
 Run the installer
