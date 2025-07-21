@@ -4,7 +4,7 @@
 This is Grow A Garden, but made more casual, and into a CLI (Command Line Interface)
 
 # Supported Devices 💻
-- OS: *MacOS Mavericks*, Windows 10 or later
+- OS: *MacOS High Sierra*, Windows 8.1 or later
 - Disk: Minimum 256mb of disk space
 - CPU: Any
 
