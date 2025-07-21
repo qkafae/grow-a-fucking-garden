@@ -30,8 +30,7 @@ Download installer from [releases](https://github.com/qkafae/grow-a-fucking-gard
 Run the installer
 
 ### 3.
-After installation, go to any terminal of your choice and run `gafg --version` to confirm the installation
-Then run `gafg --quickstart` initialize the app (you will need to do this after any updates
+After installation, go to any terminal of your choice and run `gafg --version` to confirm the installation, then run `gafg --quickstart` initialize the game files (you will need to do this after any updates
 > sometimes you may need to restart your device but most likely you dont
 
 ## 4.
