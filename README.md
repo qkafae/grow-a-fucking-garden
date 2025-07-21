@@ -2,7 +2,7 @@
 > This project is not yet complete !!!! Estiimated alpha release idk
 
 This is Grow A Garden (concept), but made more casual, and into a CLI (Command Line Interface)
-Anyways hers some cool stuff yay:
+Anyways here's some cool stuff yay:
 - plants (duh)
 - expandable garden (duh)
 - daily rotational shop
