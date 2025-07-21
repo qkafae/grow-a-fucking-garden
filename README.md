@@ -1,4 +1,5 @@
 # Grow A Fucking Garden 🌱
+> This project is not yet complete !!!!
 This is Grow A Garden, but made more casual, and into a CLI (Command Line Interface)
 
 # Supported Devices 💻
