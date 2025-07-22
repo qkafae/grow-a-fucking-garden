@@ -1,5 +1,6 @@
 # Grow A Fucking Garden 🌱
-> This project is not yet complete !!!! Estiimated alpha release idk
+> This project is not yet complete !!!!
+
 > To see how the development of this is going, see Development at the bottom
 
 This is Grow A Garden (concept), but made more casual, and into a CLI (Command Line Interface)
