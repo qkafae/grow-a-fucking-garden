@@ -36,8 +36,14 @@ After installation, go to any terminal of your choice and run `gafg --version` t
 ## 4.
 To start playing the game, run `gafg --launch`
 
+# Actions 👊
+ill write this soon
+
 # Side notes ⚠️
-And there you have it, Grow A Fucking Garden fully installed, here are some other stuff you should know:
+Here are some other stuff you should know:
 - run `gafg --help` for the list of commands
 - keeping `cache` (`"cache"` in config.json / `gafg --enablecache`) enabled is highly recommended (it's already enabled by default)
 - enjoy <3
+
+# Development 📝
+Currently working on the main cli rendering
