@@ -1,15 +1,17 @@
-import os, json, time, platform, glob, re
+import os, json, time, platform, glob, re, time
 import questionary as que
 from colorama import Fore, Style
 
 from src.binaries.DynCache import DynCache
 from src.binaries import logger
+from src.binaries.buffer import Buffer
 
 from resources.garden import *
 from resources.logo import *
 from resources.plants import *
 from resources.profile import *
 from resources.shop import *
+from resources.rarity import *
 
 ##########################################################################################################################
 
@@ -65,16 +67,51 @@ def quit(session = None):
 def getProfile():
     return temp.get("profile")
 
+def rgb(c, s):
+    r, g, b = c
+    return f"\033[38;2;{r};{g};{b}m" + s + Style.RESET_ALL
+
+def intToTime(i):
+    fmt = []
+    hrs = i // 3600
+    min = (i % 3600) // 60
+    sec = i % 60
+    
+    if hrs > 0:
+        fmt.append(f"{hrs}hr")
+        if min > 0 or sec > 0:
+            if min > 0:
+                fmt.append(f"{min}m")
+            if sec > 0:
+                fmt.append(f"{sec}s")
+    elif min > 0:
+        fmt.append(f"{min}m")
+        if sec > 0:
+            fmt.append(f"{sec}s")
+    else:
+        fmt.append(f"{sec}s")
+    
+    return " ".join(fmt)
+
+def getStatus(t):
+    t -= time.time()
+    t = int(t)
+    if (t >= 0):
+        return Fore.GREEN + "Done" + Style.RESET_ALL
+    else:
+        return intToTime(t)
+
 ##########################################################################################################################
 
 def initialize():
     clear()
 
-    global seeds
+    global seeds, rarity
 
     for l in main_logo:
         print(Fore.LIGHTGREEN_EX + l + Style.RESET_ALL)
 
+    print(" ")
     print("> Starting Grow A Fucking Garden")
     time.sleep(.5)
     print("> Loading resources")
@@ -89,6 +126,13 @@ def initialize():
         mode = Fore.RED + "Disk" + Style.RESET_ALL
     
     print(f"> Current mode: {mode}")
+    time.sleep(.5)
+
+    for k,v in rarity.items():
+        temp.set(k, v)
+
+    print("> Analysed rarities")
+    del rarity
     time.sleep(.5)
 
     for k, v in seeds.items():
@@ -186,33 +230,42 @@ def profilesMenu():
 
 ##########################################################################################################################
 
-def getMenu():
-    menu = []
+def getGarden():
+    global garden_logo
+    menu = [
+        f"[Coins 🪙] {getProfile()["coins"]}",
+        " "
+    ]
+
+    for l in garden_logo:
+        menu.append(l)
+
+    menu.append(" ")
+
     for i in range(len(getProfile()["garden"])):
         if (getProfile()["garden"][i]["crop"] == None):
             menu.append(f"Empty Slot {i + 1}")
         else:
-            menu.append(temp.get(getProfile()["garden"][i]["crop"])["display"])
+            rarity_prefix = rgb(temp.get(temp.get(getProfile()["garden"][i]["crop"])["rarity"])["color"], temp.get(temp.get(getProfile()["garden"][i]["crop"])["rarity"])["abbrv"])
+            crop_w_rgb = rgb(temp.get(getProfile()["garden"][i]["crop"])["color"], temp.get(getProfile()["garden"][i]["crop"])["display"])
+            menu.append(f"[{i + 1}] [{rarity_prefix}] " + crop_w_rgb + f" ({getStatus(getProfile()["garden"][i]["time_until_growth"])})")
 
-    menu.append("-------Market-------")
-    menu.append("Upgrades")
-    menu.append("Shop")
-    menu.append("Mastery")
-    menu.append("--------Menu--------")
-    menu.append("Switch Profiles")
-    menu.append("Quit")        
-    
     return menu
 
 ##########################################################################################################################
 
 def game(session = None):
+    buffer = Buffer()
+    playing = True
     clear()
     if (len(getProfile()["garden"]) > getProfile()["garden_size"]):
         tmp = getProfile()
         del tmp["garden"][getProfile()["garden_size"]:]
         temp.set("profile", tmp)
 
-    for i in getMenu():
-        print(i)
+    while (playing):
+        for i in getGarden():
+            buffer.write(i)
+        time.sleep(1)
+        buffer.flush()
                 

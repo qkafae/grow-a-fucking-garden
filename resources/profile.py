@@ -4,17 +4,14 @@ base_profile = {
     "garden": [
         {
             "crop": None,
-            "planted_time": None,
             "time_until_growth": None
         },
         {
             "crop": None,
-            "planted_time": None,
             "time_until_growth": None
         },
         {
             "crop": "wheat_seeds",
-            "planted_time": None,
             "time_until_growth": None
         }
     ]
