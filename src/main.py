@@ -4,6 +4,11 @@ from colorama import Fore, Style
 
 from src.binaries.game import game
 from src.binaries import logger
+from resources.garden import *
+from resources.logo import *
+from resources.plants import *
+from resources.profile import *
+from resources.shop import *
 
 script_version = {
     "name": "Grow A Fucking Garden [CLI]",
@@ -99,7 +104,7 @@ def main():
         quickStart()
     elif (args.launch):
         if (os.path.isdir(gamedir) and os.path.isfile(configPath) and os.path.isdir(os.path.join(gamedir, "profiles")) and os.path.isdir(os.path.join(gamedir, "temp"))):
-            game.main()
+            game.initialize()
         else:
             logger.error("Game files not found or is corrupted! Please run --quickstart")
     elif (args.enablecache):

@@ -67,6 +67,12 @@ class DynCache:
     def decrement(self, key: str, amount: Union[int, float] = 1) -> Union[int, float]:
         return self.increment(key, -amount)
 
+    def key_exists(self, key: str) -> bool:
+        if self._use_memory:
+            return key in self._memory_cache
+        else:
+            return os.path.exists(self._get_filepath(key))
+
     @property
     def mode(self) -> str:
         return "memory" if (self._use_memory) else f"disk: {self._temp_dir}"
