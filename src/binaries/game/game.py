@@ -12,8 +12,11 @@ from resources.plants import *
 from resources.profile import *
 from resources.shop import *
 from resources.rarity import *
+from resources.npc import *
 
 ##########################################################################################################################
+
+space = "                   "
 
 gamedir = os.path.join(os.path.expanduser("~"), ".gafg")
 configPath = os.path.join(gamedir, "config.json")
@@ -118,10 +121,10 @@ def initialize():
     global temp, plants
     if (getConfig("cache")):
         temp = DynCache()
-        mode = Fore.GREEN + "Cache" + Style.RESET_ALL
+        mode = Fore.GREEN + "Cache to memory" + Style.RESET_ALL
     else:
         temp = DynCache(use_memory = False, temp_dir = os.path.join(gamedir, "temp"))
-        mode = Fore.RED + "Disk" + Style.RESET_ALL
+        mode = Fore.RED + "Cache to disk disk" + Style.RESET_ALL
     
     print(f"> Current mode: {mode}")
     time.sleep(.5)
@@ -241,10 +244,20 @@ def inputWorker():
                 pos = max(0, pos - 1)
             elif (event.name in down):
                 pos = min(maxpos, pos + 1)
-            elif (event.name in interact):
-                if (pos == maxpos):
-                    if (inGarden):
+
+            if (inGarden):
+                if (event.name in interact):
+                    if (pos == maxpos):
                         return
+                    
+            elif (inMarket):
+                if (event.name in interact):
+                    if (pos == 0):
+                        inMarket = False
+                        inGarden = True
+                    elif (pos == maxpos):
+                        return
+                    
             refreshGarden()
         
 keystrokeThread = threading.Thread(target=inputWorker)
@@ -252,16 +265,16 @@ keystrokeThread = threading.Thread(target=inputWorker)
 ##########################################################################################################################
 
 def gardenMenu():
-    global garden_logo
+    global garden_logo, space
     menu = [
         f"{Fore.YELLOW}[Coins 🪙]{Style.RESET_ALL} {getProfile()["coins"]}",
-        "                    "
+        space
     ]
 
     for l in garden_logo:
         menu.append(l)
 
-    menu.append("                    ")
+    menu.append(space)
 
     for i in range(len(getProfile()["garden"])):
         if (getProfile()["garden"][i]["crop"] == None):
@@ -271,8 +284,8 @@ def gardenMenu():
             crop_w_rgb = rgb(temp.get(getProfile()["garden"][i]["crop"])["color"], temp.get(getProfile()["garden"][i]["crop"])["display"])
             menu.append(f"[{i + 1}] [{rarity_prefix}] " + crop_w_rgb + f" ({getStatus(getProfile()["garden"][i]["time_until_growth"])})")
 
-    menu.append("                    ")
-    menu.append(Fore.CYAN + "🌀 Teleport to market" + Style.RESET_ALL)
+    menu.append(space)
+    menu.append(rgb((220,208,192), "🧺 Path to The Market"))
 
     return menu
 
@@ -286,6 +299,21 @@ def refreshGarden():
     buffer.flush()
 
 ##########################################################################################################################
+
+def marketMenu():
+    global shop_logo, npcs, space
+    menu = [
+        Fore.GREEN + "🌱 Path to Your Garden" + Style.RESET_ALL,
+        space,
+        f"{Fore.YELLOW}[Coins 🪙]{Style.RESET_ALL} {getProfile()["coins"]}",
+        space
+    ]
+
+def refreshMarket():
+    return
+
+##########################################################################################################################
+
 
 inGarden = True
 inMarket = False
@@ -308,5 +336,8 @@ def game(session = None):
         refreshGarden()
         time.sleep(1)
 
+    while (inMarket):
+        refreshMarket()
+        time.sleep(1)
     
                 
