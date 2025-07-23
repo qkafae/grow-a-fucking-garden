@@ -19,7 +19,20 @@ script_version = {
 
 base_config = {
     "cache": True, # or False
-    "position": "centered" # or "standard"
+    "position": "centered", # or "standard"
+    "keybinds": {
+        "up": [
+            "w",
+            "up"
+        ],
+        "down": [
+            "s",
+            "down"
+        ],
+        "interact": [
+            "e"
+        ]
+    }
 }
 
 global config

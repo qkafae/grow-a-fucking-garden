@@ -1,4 +1,4 @@
-import os, json, time, platform, glob, re, time
+import os, json, time, platform, glob, re, time, threading, keyboard
 import questionary as que
 from colorama import Fore, Style
 
@@ -19,6 +19,11 @@ gamedir = os.path.join(os.path.expanduser("~"), ".gafg")
 configPath = os.path.join(gamedir, "config.json")
 profilesPath = os.path.join(gamedir, "profiles")
 
+buffer = Buffer()
+inGame = False
+maxpos = 0
+pos = 0
+
 global mode, sessions
 
 ##########################################################################################################################
@@ -28,13 +33,6 @@ def clear():
         os.system('cls')
     else:
         os.system('clear')
-
-def editConfig(k, v):
-    cfg = loadConfig()
-    cfg[k] = v
-
-    with open(configPath, "w") as f:
-        json.dump(cfg, f, indent=4)
 
 def loadConfig():
     with open(configPath, "r") as f:
@@ -96,7 +94,7 @@ def intToTime(i):
 def getStatus(t):
     t -= time.time()
     t = int(t)
-    if (t >= 0):
+    if (t <= 0):
         return Fore.GREEN + "Done" + Style.RESET_ALL
     else:
         return intToTime(t)
@@ -230,17 +228,40 @@ def profilesMenu():
 
 ##########################################################################################################################
 
-def getGarden():
+up = getConfig("keybinds")["up"]
+down = getConfig("keybinds")["down"]
+interact = getConfig("keybinds")["interact"]
+
+def inputWorker():
+    global inGame, up, down, pos, maxpos
+    while (inGame):
+        event = keyboard.read_event()
+        if (event.event_type == keyboard.KEY_DOWN):
+            if (event.name in up):
+                pos = max(0, pos - 1)
+            elif (event.name in down):
+                pos = min(maxpos, pos + 1)
+            elif (event.name in interact):
+                if (pos == maxpos):
+                    if (inGarden):
+                        return
+            refreshGarden()
+        
+keystrokeThread = threading.Thread(target=inputWorker)
+
+##########################################################################################################################
+
+def gardenMenu():
     global garden_logo
     menu = [
-        f"[Coins 🪙] {getProfile()["coins"]}",
-        " "
+        f"{Fore.YELLOW}[Coins 🪙]{Style.RESET_ALL} {getProfile()["coins"]}",
+        "                    "
     ]
 
     for l in garden_logo:
         menu.append(l)
 
-    menu.append(" ")
+    menu.append("                    ")
 
     for i in range(len(getProfile()["garden"])):
         if (getProfile()["garden"][i]["crop"] == None):
@@ -250,22 +271,42 @@ def getGarden():
             crop_w_rgb = rgb(temp.get(getProfile()["garden"][i]["crop"])["color"], temp.get(getProfile()["garden"][i]["crop"])["display"])
             menu.append(f"[{i + 1}] [{rarity_prefix}] " + crop_w_rgb + f" ({getStatus(getProfile()["garden"][i]["time_until_growth"])})")
 
+    menu.append("                    ")
+    menu.append(Fore.CYAN + "🌀 Teleport to market" + Style.RESET_ALL)
+
     return menu
+
+def refreshGarden():
+    global buffer, pos, maxpos
+    menu = gardenMenu()
+    maxpos = len(menu) - 1
+    menu[pos] += " 👨‍🌾"
+    for i in menu:
+        buffer.write(i)
+    buffer.flush()
 
 ##########################################################################################################################
 
+inGarden = True
+inMarket = False
+
 def game(session = None):
-    buffer = Buffer()
-    playing = True
+    global inGarden, inMarket
+
     clear()
     if (len(getProfile()["garden"]) > getProfile()["garden_size"]):
         tmp = getProfile()
         del tmp["garden"][getProfile()["garden_size"]:]
         temp.set("profile", tmp)
 
-    while (playing):
-        for i in getGarden():
-            buffer.write(i)
-        buffer.flush()
+    global inGame
+    inGame = True
+
+    keystrokeThread.start()
+
+    while(inGarden):
+        refreshGarden()
         time.sleep(1)
+
+    
                 
