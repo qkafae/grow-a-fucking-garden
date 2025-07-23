@@ -48,4 +48,4 @@ Here are some other stuff you should know:
 - enjoy <3
 
 # Development 📝
-Currently working on the main cli rendering
+Currently working on area designs
