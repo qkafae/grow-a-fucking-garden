@@ -244,14 +244,12 @@ def inputWorker():
                 pos = max(0, pos - 1)
             elif (event.name in down):
                 pos = min(maxpos, pos + 1)
-
-            if (inGarden):
-                if (event.name in interact):
+            elif (event.name in interact):
+                if (inGarden):
                     if (pos == maxpos):
                         return
                     
-            elif (inMarket):
-                if (event.name in interact):
+                elif (inMarket):
                     if (pos == 0):
                         inMarket = False
                         inGarden = True
