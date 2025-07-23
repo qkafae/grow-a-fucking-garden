@@ -266,6 +266,6 @@ def game(session = None):
     while (playing):
         for i in getGarden():
             buffer.write(i)
-        time.sleep(1)
         buffer.flush()
+        time.sleep(1)
                 

@@ -12,13 +12,14 @@ from resources.shop import *
 
 script_version = {
     "name": "Grow A Fucking Garden [CLI]",
-    "version": "0.1.0",
+    "version": "0.1.0 (Alpha)",
     "description": "Grow A Garden but it's a CLI",
     "author": "kafae"
 }
 
 base_config = {
-    "cache": True
+    "cache": True, # or False
+    "position": "centered" # or "standard"
 }
 
 global config
@@ -94,6 +95,16 @@ def main():
         "--disablecache",
         action="store_true",
         help="Disable caching of game files"
+    )
+    parser.add_argument(
+        "--standardui",
+        action="store_true",
+        help="Set the game ui to the standard (top left corner) position on screen"
+    )
+    parser.add_argument(
+        "--centeredui",
+        action="store_true",
+        help="Set the game ui to a centered position on screen"
     )
 
     args = parser.parse_args()
