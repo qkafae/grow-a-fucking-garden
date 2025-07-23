@@ -236,7 +236,7 @@ down = getConfig("keybinds")["down"]
 interact = getConfig("keybinds")["interact"]
 
 def inputWorker():
-    global inGame, up, down, pos, maxpos
+    global inGame, up, down, pos, maxpos, inGarden, inMarket
     while (inGame):
         event = keyboard.read_event()
         if (event.event_type == keyboard.KEY_DOWN):
