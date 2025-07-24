@@ -236,7 +236,7 @@ down = getConfig("keybinds")["down"]
 interact = getConfig("keybinds")["interact"]
 
 def inputWorker():
-    global inGame, up, down, pos, maxpos, inGarden, inMarket
+    global inGame, up, down, pos, maxpos, inGarden, inMarket, buffer
     while (inGame):
         event = keyboard.read_event()
         if (event.event_type == keyboard.KEY_DOWN):
@@ -247,17 +247,25 @@ def inputWorker():
             elif (event.name in interact):
                 if (inGarden):
                     if (pos == maxpos):
-                        return
+                        buffer.clear()
+                        inGarden = False
+                        pos = 0
+                        inMarket = True
                     
                 elif (inMarket):
                     if (pos == 0):
+                        buffer.clear()
                         inMarket = False
+                        refreshGarden(False)
+                        pos = maxpos
                         inGarden = True
                     elif (pos == maxpos):
                         return
-                    
-            refreshGarden()
-        
+            if (inGarden):
+                refreshGarden()
+            elif (inMarket):
+                refreshMarket()
+
 keystrokeThread = threading.Thread(target=inputWorker)
 
 ##########################################################################################################################
@@ -287,11 +295,12 @@ def gardenMenu():
 
     return menu
 
-def refreshGarden():
+def refreshGarden(char = True):
     global buffer, pos, maxpos
     menu = gardenMenu()
     maxpos = len(menu) - 1
-    menu[pos] += " 👨‍🌾"
+    if (char):
+        menu[pos] += " 👨‍🌾"
     for i in menu:
         buffer.write(i)
     buffer.flush()
@@ -304,11 +313,23 @@ def marketMenu():
         Fore.GREEN + "🌱 Path to Your Garden" + Style.RESET_ALL,
         space,
         f"{Fore.YELLOW}[Coins 🪙]{Style.RESET_ALL} {getProfile()["coins"]}",
-        space
+        space,
     ]
 
-def refreshMarket():
-    return
+    for i in shop_logo:
+        menu.append(i)
+
+    return menu
+
+def refreshMarket(char = True):
+    global buffer, pos, maxpos
+    menu = marketMenu()
+    maxpos = len(menu) - 1
+    if (char):
+        menu[pos] += " 👨‍🌾"
+    for l in menu:
+        buffer.write(l)
+    buffer.flush()
 
 ##########################################################################################################################
 
@@ -330,12 +351,11 @@ def game(session = None):
 
     keystrokeThread.start()
 
-    while(inGarden):
-        refreshGarden()
-        time.sleep(1)
-
-    while (inMarket):
-        refreshMarket()
-        time.sleep(1)
-    
+    while (True):
+        if (inGarden):
+            refreshGarden()
+            time.sleep(1)
+        elif (inMarket):
+            refreshMarket()
+            time.sleep(1)
                 

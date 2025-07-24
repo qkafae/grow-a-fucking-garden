@@ -17,6 +17,6 @@ garden_logo = [
 
 shop_logo = [
     r"┌────────────────────────────────┐",
-    f"│           {Fore.CYAN}🛒 Shop 🛒{Style.RESET_ALL}          │",
+    f"│           {Fore.CYAN}🛒 Shop 🛒{Style.RESET_ALL}           │",
     r"└────────────────────────────────┘",
 ]

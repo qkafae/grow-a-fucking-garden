@@ -13,3 +13,6 @@ class Buffer:
         sys.stdout.write("".join(self.buffer))
         sys.stdout.flush()
         self.buffer = []
+
+    def clear(self):
+        self.buffer = []
